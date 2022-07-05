@@ -1,6 +1,6 @@
 #include <iostream>
 #include <assert.h>
-#include "test_bms.hpp"
+#include "test_checker.hpp"
 
 static void testBatteryTemp(BMS::Validate* BaseClassPtr[], float temp, bool expectedValue);
 static void testBatteryStateOfCharge(BMS::Validate* BaseClassPtr[], float soc, bool expectedValue);
