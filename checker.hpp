@@ -1,6 +1,5 @@
-#ifndef CHECKER_HPP
-#define CHECKER_HPP
-
+#ifndef BMS_CYCLOMATIC_HPP
+#define BMS_CYCLOMATIC_HPP
 #include<iostream>
 #include<vector>
 namespace BMS
@@ -78,7 +77,8 @@ namespace BMS
 		{
 			bool flag = false;
 			int errorIndex = 0;
-			for (errorIndex = 0; errorIndex < 4; errorIndex++)
+			ParamStatus = static_cast<ErrorType> (temperatureBoundaryValues.size());
+			for (errorIndex = 0; errorIndex < temperatureBoundaryValues.size(); errorIndex++)
 			{
 				if (Temperature <= temperatureBoundaryValues.at(errorIndex))
 				{
@@ -87,10 +87,7 @@ namespace BMS
 					break;
 				}
 			}
-			if (flag == false)
-			{
-				ParamStatus = static_cast<ErrorType> (errorIndex);
-			}
+			
 			//std::cout << "Allocated enum as : " << int(ParamStatus) <<std::endl;
 		}
 		/*bool checkForEarlyWarning()
@@ -179,7 +176,8 @@ namespace BMS
 		{
 			bool flag = false;
 			int errorIndex = 0;
-			for (errorIndex = 0; errorIndex < 4; errorIndex++)
+			ParamStatus = static_cast<ErrorType> (socBoundaryValues.size());
+			for (errorIndex = 0; errorIndex < socBoundaryValues.size(); errorIndex++)
 			{
 				if (stateOfCharge <= socBoundaryValues.at(errorIndex))
 				{
@@ -188,10 +186,7 @@ namespace BMS
 					break;
 				}
 			}
-			if (flag == false)
-			{
-				ParamStatus = static_cast<ErrorType> (errorIndex);
-			}
+			
 			//std::cout << "Allocated SOC enum as : " << int(ParamStatus) << std::endl;
 		}
 
@@ -262,7 +257,8 @@ namespace BMS
 		{
 			bool flag = false;
 			int errorIndex = 0;
-			for (errorIndex = 0; errorIndex < 4; errorIndex++)
+			ParamStatus = static_cast<ErrorType> (rocBoundaryValues.size());
+			for (errorIndex = 0; errorIndex < rocBoundaryValues.size(); errorIndex++)
 			{
 				if (chargeRate <= rocBoundaryValues.at(errorIndex))
 				{
@@ -271,10 +267,7 @@ namespace BMS
 					break;
 				}
 			}
-			if (flag == false)
-			{
-				ParamStatus = static_cast<ErrorType> (errorIndex);
-			}
+			
 			//std::cout << "Allocated ROC enum as : " << int(ParamStatus) << std::endl;
 		}
 		void setValue(float value)
@@ -325,5 +318,7 @@ namespace BMS
 
 	bool isBatteryOkay(BMS::compositeValidator* CompositeValidators);
 }
+
+
 
 #endif
