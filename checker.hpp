@@ -325,3 +325,5 @@ namespace BMS
 
 	bool isBatteryOkay(BMS::compositeValidator* CompositeValidators);
 }
+
+#endif
