@@ -1,22 +1,36 @@
-#include <assert.h>
+
 #include <iostream>
-using namespace std;
+#include <vector>
+#include "checker.hpp"
+#include "test_checker.hpp"
 
-bool batteryIsOk(float temperature, float soc, float chargeRate) {
-  if(temperature < 0 || temperature > 45) {
-    cout << "Temperature out of range!\n";
-    return false;
-  } else if(soc < 20 || soc > 80) {
-    cout << "State of Charge out of range!\n";
-    return false;
-  } else if(chargeRate > 0.8) {
-    cout << "Charge Rate out of range!\n";
-    return false;
-  }
-  return true;
-}
 
-int main() {
-  assert(batteryIsOk(25, 70, 0.7) == true);
-  assert(batteryIsOk(50, 85, 0) == false);
+BMS::Languages BMS::prefferedlanguage = BMS::Languages::English;
+bool BMS::isBatteryOkay(BMS::compositeValidator* CompositeValidators)
+{
+   return CompositeValidators->isParamOkay();
+}        
+int main()
+{
+    BMS::compositeValidator* validators = new BMS::compositeValidator();
+    
+    //Checking language support
+    BMS::prefferedlanguage = BMS::Languages::English;
+    validators->add(new BMS::TemperatureValidator(25.0f));
+    validators->add(new BMS::SocValidator(30.0f));
+    validators->add(new BMS::RocValidator(0.5));
+    isBatteryOkay(validators);
+    validators->display();
+   
+    BMS::prefferedlanguage = BMS::Languages::German;
+    validators->setValue(BMS::ParameterCheck::TEMPERTURE, 3);
+    validators->setValue(BMS::ParameterCheck::CHARGERATE, 0.7f);
+    validators->setValue(BMS::ParameterCheck::STATEOFCHARGE, 30);
+    isBatteryOkay(validators);
+    validators->display();
+
+    //Calling testfunction to validate IsBatteryOkay result for differnt values.
+    testBMS(validators);
+   
+    return 0;
 }

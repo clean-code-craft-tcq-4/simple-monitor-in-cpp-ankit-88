@@ -1,3 +1,5 @@
+Implemented Language and Early Warning features.
+
 # Programming Paradigms
 
 Electric Vehicles have BMS - Battery Management Systems
